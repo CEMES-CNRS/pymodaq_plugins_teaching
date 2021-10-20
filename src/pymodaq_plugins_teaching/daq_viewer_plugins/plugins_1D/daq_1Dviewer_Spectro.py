@@ -74,9 +74,8 @@ class DAQ_1DViewer_Spectro(DAQ_Viewer_base):
                                                noise=self.settings.child('noise').value())  # any object that will control the stages
                 #####################################
             self.settings.child('infos').setValue(self.controller.infos)
-            ## TODO for your custom plugin
-            # get the x_axis (you may want to to this also in the commit settings if x_axis may have changed
-            #self.get_xaxis()
+
+            self.controller.wavelength_changed_signal.connect(self.get_xaxis)
 
             ##############################
 
@@ -108,20 +107,16 @@ class DAQ_1DViewer_Spectro(DAQ_Viewer_base):
         """
         ## TODO for your custom plugin
 
-        ##synchrone version (blocking function)
-        if self.controller.wavelength_changed:
-            self.get_xaxis()
-            self.controller.wavelength_changed = False
+
+        # if self.controller.wavelength_changed:
+        #     self.get_xaxis()
+        #     self.controller.wavelength_changed = False
 
         data = self.controller.grab_spectrum()
         self.data_grabed_signal.emit([DataFromPlugins(name='MySpectro', data=[data],
                                                       dim='Data1D', labels=['Spectrum'])])
         #########################################################
 
-
-        # ##asynchrone version (non-blocking function with callback)
-        # self.controller.your_method_to_start_a_grab_snap(self.callback)
-        # #########################################################
 
 
 
