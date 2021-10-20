@@ -23,6 +23,7 @@ class Spectrometer:
         self._noise = noise
         self._wh = wh
         self._grating = grating
+        self.wavelength_changed = False
 
     @property
     def grating(self):
@@ -61,13 +62,15 @@ class Spectrometer:
             self._wh = value
 
     def set_wavelength(self, value, set_type='abs'):
-        if value < 0:
-            raise ValueError('Wavelength cannot be negative')
 
         if set_type == 'abs':
+            if value < 0:
+                raise ValueError('Wavelength cannot be negative')
             self.current_positions['lambda0'] = value
         else:
             self.current_positions['lambda0'] += value
+
+        self.wavelength_changed = True
 
     def get_wavelength(self):
         return self.current_positions['lambda0']

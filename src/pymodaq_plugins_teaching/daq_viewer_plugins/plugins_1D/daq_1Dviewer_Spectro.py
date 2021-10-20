@@ -35,14 +35,15 @@ class DAQ_1DViewer_Spectro(DAQ_Viewer_base):
         elif param.name() == "grating":
             self.controller.grating = param.value()
             self.gratings_changed = True
+            self.get_xaxis()
 
         ##
 
     def get_xaxis(self):
         data_x_axis = self.controller.get_xaxis()  # if possible
-        self.x_axis = Axis(data=data_x_axis, label='', units='')
-        self.emit_x_axis()
-        return self.x_axis
+        x_axis = Axis(data=data_x_axis, label='', units='')
+        self.emit_x_axis(x_axis)
+        return x_axis
 
     def ini_detector(self, controller=None):
         """Detector communication initialization
@@ -108,14 +109,15 @@ class DAQ_1DViewer_Spectro(DAQ_Viewer_base):
         ## TODO for your custom plugin
 
         ##synchrone version (blocking function)
-
+        if self.controller.wavelength_changed:
+            self.get_xaxis()
+            self.controller.wavelength_changed = False
 
         data = self.controller.grab_spectrum()
         self.data_grabed_signal.emit([DataFromPlugins(name='MySpectro', data=[data],
-                                                      dim='Data1D', labels=['Spectrum'],)])
+                                                      dim='Data1D', labels=['Spectrum'])])
         #########################################################
-        if self.gratings_changed:
-            self.get_xaxis()
+
 
         # ##asynchrone version (non-blocking function with callback)
         # self.controller.your_method_to_start_a_grab_snap(self.callback)
