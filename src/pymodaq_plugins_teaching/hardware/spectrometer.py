@@ -1,9 +1,9 @@
 import numpy as np
 from pymodaq.daq_utils.daq_utils import gauss1D
-from PyQt5.QtCore import pyqtSignal
+from qtpy.QtCore import Signal
 
 class Spectrometer(QtCore.QObject):
-    wavelength_changed_signal = pyqtSignal(float)
+    wavelength_changed_signal = Signal(float)
     axis = ['lambda0']
     gratings = ['G300', 'G1200']
 

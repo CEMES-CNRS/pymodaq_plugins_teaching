@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+from qtpy import QtWidgets
 from easydict import EasyDict as edict
 from pymodaq.daq_utils.daq_utils import ThreadCommand, getLineInfo, DataFromPlugins, Axis
 from pymodaq.daq_viewer.utility_classes import DAQ_Viewer_base, comon_parameters, main
