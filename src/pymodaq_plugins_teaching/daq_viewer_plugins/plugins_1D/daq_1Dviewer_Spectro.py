@@ -12,7 +12,7 @@ class DAQ_1DViewer_Spectro(DAQ_Viewer_base):
         {'title': 'Amplitude:', 'name': 'amplitude', 'type': 'float', 'value': 1.},
         {'title': 'Width:', 'name': 'width', 'type': 'float', 'value': 10.},
         {'title': 'noise:', 'name': 'noise', 'type': 'float', 'value': 0.1},
-        {'title': 'Grating::', 'name': 'grating', 'type': 'list', 'values': Spectrometer.gratings},
+        {'title': 'Grating::', 'name': 'grating', 'type': 'list', 'limits': Spectrometer.gratings},
 
     ]
 
